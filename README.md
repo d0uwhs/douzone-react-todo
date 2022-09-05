@@ -1,5 +1,3 @@
-# Douzone-React
-
-## Todo - Application
+# Douzone-React-TODO
 
 ---

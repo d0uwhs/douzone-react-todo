@@ -1,20 +1,22 @@
 import React, {useRef, useState} from 'react';
 import './TodosPage.css'
-import TodoItems from "../../components/input/TodoItems";
+import TodoItem from "../../components/TodoItem";
 
 const TodosPage = () => {
 
     let todoCount = useRef(0)
+    const inputTitle = useRef()
+    const onFocus = () => {
+        inputTitle.current.focus();
+    }
 
     const [todoItem, setTodoItem] = useState({
         id: todoCount.current,
-        completed: "",
         title: "",
         body: ""
     });
 
-    const {completed, title, body} = todoItem;
-
+    const {title, body} = todoItem;
 
     const [todoItems, setTodoItems] = useState([]);
 
@@ -23,44 +25,65 @@ const TodosPage = () => {
         setTodoItem({
             ...todoItem,
             [name]: value,
-
         });
     };
 
     const handleChangeTodoItems = () => {
         const todo = {
-            id:todoCount.current,
-            completed,
+            id: todoCount.current,
+            completed: false,
             title,
             body
         }
         setTodoItems([...todoItems,
             todo])
         todoCount.current += 1
+        setTodoItem({title: "", body: ""})
+
     }
 
+    const handleRemoveTodoItems = (event) => {
+        setTodoItems(
+            todoItems.filter((item) => item.id !== event)
+        )
+
+    }
     return (
         <div>
-            <div className="">
-                <div className="">Study</div>
-                <div className=""></div>
-                <input type="text" name="title" onKeyDown={
-                    handleOnChange
-                }/>
-                <input type="text" name="body" onKeyDown={
-                    handleOnChange
-                }/>
+            <div className="container">
+                <div className="todo-header">
+                    <div className="todo-title">TODO List</div>
+                    <div className="todo-item-count">{todoItems.length}</div>
+                </div>
+                <div className="flex">
+                    <div className="todo-input">
+                        <input type="text" name="title" value={title} className="todo-input-title" placeholder="Notes"
+                               onChange={handleOnChange} onKeyDown={
+                            (e) => {
+                                if (e.key === 'Enter' && !e.nativeEvent.isComposing) {
+                                    handleChangeTodoItems()
+                                    onFocus();
+                                }
+                            }
+                        } ref={inputTitle}/>
 
-                <button type="button" onClick={() => {
-                    handleChangeTodoItems()
-                }}>추가하기
-                </button>
+                        <input type="text" name="body" value={body} className="todo-input-body" placeholder="Contents"
+                               onChange={handleOnChange} onKeyDown={
+                            (e) => {
+                                if (e.key === 'Enter' && !e.nativeEvent.isComposing) {
+                                    handleChangeTodoItems()
+                                    onFocus();
+                                }
+                            }
+                        }/>
+                    </div>
+                </div>
 
-                {todoItems.length ? todoItems.map(item =>
-                        <TodoItems item={item} key={item.id}/>)
+
+                {todoItems.length ? todoItems.map(todo =>
+                        <TodoItem todo={todo} key={todo.id} handleRemoveTodoItems={handleRemoveTodoItems}/>)
                     : <div className="no-items">All Items Completed</div>
                 }
-                <div className="break-line"></div>
             </div>
 
         </div>

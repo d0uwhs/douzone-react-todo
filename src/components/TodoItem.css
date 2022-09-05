@@ -1,0 +1,66 @@
+.title:hover{
+    background-color: yellow;
+    text-align: left;
+}
+
+
+.todo-item-container{
+    margin-top: 1em;
+    animation-name: opacticy;
+    animation-duration: 0.5s;
+}
+
+.todo-checkbox {
+    border: 1px solid #BDBDBD;
+    background: transparent;
+    border-radius: 100%;
+    width: 1.2rem;
+    height: 1.2rem;
+    grid-column: span 1;
+
+}
+
+.todo-item-box{
+    display: grid;
+    grid-template-columns: repeat(20, minmax(0, 1fr));
+    align-items: center;
+    margin: 0.2rem 0;
+    z-index: 100;
+}
+
+.todo-item-inputbox{
+    grid-column: span 17;
+}
+
+.todo-yet{
+    background: transparent;
+}
+
+.todo-item-title{
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.todo-item-body{
+    font-size: 0.9rem;
+    overflow: scroll;
+}
+
+.todo-item-remove{
+    grid-column-end: -1;
+    width: 0.888em;
+}
+
+.box-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.todo-done {
+    background: #AD7DD1;
+    border-radius: 100%;
+    width: 0.8rem;
+    height: 0.8rem;
+    position: absolute;
+}
