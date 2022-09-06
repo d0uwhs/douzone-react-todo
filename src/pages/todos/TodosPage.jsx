@@ -44,11 +44,11 @@ const TodosPage = () => {
     useEffect(() => {
         const getTodo = JSON.parse(localStorage.getItem('todo'));
 
-        if (getTodo === null){
+        if (getTodo === null) {
             setTodoItems([])
         }
 
-        if (getTodo !== null){
+        if (getTodo !== null && getTodo.length) {
             const lastItem = getTodo.pop()
             todoCount.current = lastItem.id + 1
             setTodoItems(JSON.parse(localStorage.getItem('todo')))
@@ -60,7 +60,6 @@ const TodosPage = () => {
     useEffect(() => {
         localStorage.setItem('todo', JSON.stringify(todoItems))
     }, [todoItems]);
-
 
 
     return (<div>
