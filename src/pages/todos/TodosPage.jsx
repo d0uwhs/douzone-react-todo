@@ -41,6 +41,14 @@ const TodosPage = () => {
         setTodoItems(todoItems.filter((item) => item.id !== event))
     }
 
+    const handleChangeValues = (targetTodo) => {
+        setTodoItems(todoItems.map(todoItem => todoItem.id === targetTodo.id ? {
+            ...todoItem,
+            completed: !targetTodo.completed
+        } : todoItem))
+    }
+
+
     useEffect(() => {
         const getTodo = JSON.parse(localStorage.getItem('todo'));
 
@@ -87,10 +95,9 @@ const TodosPage = () => {
                     }}/>
                 </div>
             </div>
-
-
             {todoItems.length ? todoItems.map(todo => <TodoItem todo={todo} key={todo.id}
-                                                                handleRemoveTodoItems={handleRemoveTodoItems}/>) :
+                                                                handleRemoveTodoItems={handleRemoveTodoItems}
+                                                                handleChangeValues={handleChangeValues}/>) :
                 <div className="no-items">All Items Completed</div>}
         </div>
 

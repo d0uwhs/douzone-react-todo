@@ -4,7 +4,7 @@ import "../style/animation/opacity.css";
 import {ReactComponent as Xicon} from "../style/svg/x-solid.svg";
 
 
-const TodoItem = ({todo, handleRemoveTodoItems}) => {
+const TodoItem = ({todo, handleRemoveTodoItems, handleChangeValues}) => {
 
     const [todoItem, setTodoItem] = useState({
         id: todo.id,
@@ -26,9 +26,15 @@ const TodoItem = ({todo, handleRemoveTodoItems}) => {
                 <div className="box-container">
                     <button type="button" className="todo-checkbox"
                             value={todoItem.completed}
-                            onClick={handleCompleted}>
+                            onClick={() => {
+                                handleCompleted()
+                                handleChangeValues(todoItem)
+                            }}>
                     </button>
-                    {!todoItem.completed || <div className="todo-done" onClick={handleCompleted}/>}
+                    {!todoItem.completed || <div className="todo-done" onClick={() => {
+                        handleCompleted()
+                        handleChangeValues(todoItem)
+                    }}/>}
                 </div>
 
                 <div className="todo-item-inputbox">
